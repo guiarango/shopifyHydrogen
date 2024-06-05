@@ -47,6 +47,9 @@ export const CART_QUERY_FRAGMENT = `#graphql
           title
           id
           vendor
+          giftProduct: metafield(namespace:"custom",key:"giftproduct"){
+            value
+          }
         }
         selectedOptions {
           name

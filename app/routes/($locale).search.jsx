@@ -106,8 +106,14 @@ const SEARCH_QUERY = `#graphql
         product {
           handle
           title
+          giftProduct: metafield(namespace:"custom",key:"giftproduct"){
+            value
+          }
         }
       }
+    }
+    giftProduct: metafield(namespace:"custom",key:"giftproduct"){
+      value
     }
   }
   fragment SearchPage on Page {

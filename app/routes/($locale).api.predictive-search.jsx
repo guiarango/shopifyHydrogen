@@ -245,6 +245,9 @@ const PREDICTIVE_SEARCH_QUERY = `#graphql
         }
       }
     }
+    giftProduct: metafield(namespace:"custom",key:"giftproduct"){
+      value
+    }
   }
   fragment PredictiveQuery on SearchQuerySuggestion {
     __typename
