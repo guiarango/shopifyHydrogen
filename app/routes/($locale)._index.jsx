@@ -1,8 +1,16 @@
 import {defer} from '@shopify/remix-oxygen';
-import {Await, useLoaderData, Link} from '@remix-run/react';
-import {Suspense} from 'react';
-import {Image} from '@shopify/hydrogen';
-import ProductItem from '~/components/ProductItem';
+import {useLoaderData} from '@remix-run/react';
+
+//Components
+import RecommendedProducts from '~/components/ProductsUtils/RecommendedProducts';
+
+//Services
+import {
+  FEATURED_COLLECTION_QUERY,
+  RECOMMENDED_PRODUCTS_QUERY,
+} from '~/services/PLPServices';
+
+import {PRODUCT_QUERY, VARIANTS_QUERY} from '~/services/productUtilsServices';
 
 /**
  * @type {MetaFunction}
@@ -27,10 +35,12 @@ export default function Homepage() {
   /** @type {LoaderReturnData} */
   const data = useLoaderData();
   return (
-    <div className="home">
-      <FeaturedCollection collection={data.featuredCollection} />
-      <RecommendedProducts products={data.recommendedProducts} />
-    </div>
+    <main className="home">
+      <RecommendedProducts
+        products={data.recommendedProducts}
+        title="¡Conoce lo nuevo!"
+      />
+    </main>
   );
 }
 
@@ -39,105 +49,12 @@ export default function Homepage() {
  *   collection: FeaturedCollectionFragment;
  * }}
  */
-function FeaturedCollection({collection}) {
-  if (!collection) return null;
-  const image = collection?.image;
-  return (
-    <Link
-      className="featured-collection"
-      to={`/collections/${collection.handle}`}
-    >
-      {image && (
-        <div className="featured-collection-image">
-          <Image data={image} sizes="100vw" />
-        </div>
-      )}
-      <h1>{collection.title}</h1>
-    </Link>
-  );
-}
 
 /**
  * @param {{
  *   products: Promise<RecommendedProductsQuery>;
  * }}
  */
-function RecommendedProducts({products}) {
-  return (
-    <div className="recommended-products">
-      <h2>Recommended Products</h2>
-      <Suspense fallback={<div>Loading...</div>}>
-        <Await resolve={products}>
-          {({products}) => (
-            <div className="recommended-products-grid">
-              {products.nodes.map((product) => (
-                <ProductItem key={product.id} product={product} />
-              ))}
-            </div>
-          )}
-        </Await>
-      </Suspense>
-      <br />
-    </div>
-  );
-}
-
-const FEATURED_COLLECTION_QUERY = `#graphql
-  fragment FeaturedCollection on Collection {
-    id
-    title
-    image {
-      id
-      url
-      altText
-      width
-      height
-    }
-    handle
-  }
-  query FeaturedCollection($country: CountryCode, $language: LanguageCode)
-    @inContext(country: $country, language: $language) {
-    collections(first: 1, sortKey: UPDATED_AT, reverse: true) {
-      nodes {
-        ...FeaturedCollection
-      }
-    }
-  }
-`;
-
-const RECOMMENDED_PRODUCTS_QUERY = `#graphql
-  fragment RecommendedProduct on Product {
-    id
-    title
-    handle
-    priceRange {
-      minVariantPrice {
-        amount
-        currencyCode
-      }
-    }
-    images(first: 1) {
-      nodes {
-        id
-        url
-        altText
-        width
-        height
-      }
-    }
-    giftProduct: metafield(namespace:"custom",key:"giftproduct"){
-      value
-    }
-  }
-  query RecommendedProducts ($country: CountryCode, $language: LanguageCode)
-    @inContext(country: $country, language: $language) {
-    products(first: 4, sortKey: UPDATED_AT, reverse: true) {
-      nodes {
-        ...RecommendedProduct
-      }
-    }
-  }
-`;
 
 /** @typedef {import('@shopify/remix-oxygen').LoaderFunctionArgs} LoaderFunctionArgs */
 /** @template T @typedef {import('@remix-run/react').MetaFunction<T>} MetaFunction */

@@ -1,0 +1,16 @@
+.recommendedProducts {
+  height: auto;
+}
+
+.recommendedProductsTitle {
+  text-align: center;
+}
+
+.recommendedProductsGrid {
+  display: grid;
+  grid-gap: 10px;
+  grid-template-columns: repeat(2, 2fr);
+  @media (min-width: 720px) {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}

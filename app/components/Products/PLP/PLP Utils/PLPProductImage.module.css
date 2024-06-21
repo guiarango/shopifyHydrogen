@@ -1,0 +1,42 @@
+.imagesContainer {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  padding-bottom: 100%; /* Maintain aspect ratio (1:1) */
+}
+
+.singleImage,
+.doubleImage,
+.doubleImage1,
+.doubleImage2 {
+  transition: 0.4s;
+}
+
+.imagesContainer:hover .singleImage,
+.imagesContainer:hover .doubleImage2 {
+  transform: scale(1.05);
+}
+
+.singleImage,
+.doubleImage {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Ensures image covers the container without distortion */
+}
+.doubleImage1 {
+  opacity: 1;
+}
+.doubleImage2 {
+  opacity: 0;
+}
+
+.imagesContainer:hover .doubleImage1 {
+  opacity: 0;
+}
+
+.imagesContainer:hover .doubleImage2 {
+  opacity: 1;
+}

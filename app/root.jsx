@@ -14,6 +14,7 @@ import favicon from './assets/favicon.svg';
 import resetStyles from './styles/reset.css?url';
 import appStyles from './styles/app.css?url';
 import {Layout} from '~/components/Layout';
+import {HEADER_QUERY, FOOTER_QUERY} from '~/services/menuServices';
 
 /**
  * This is important to avoid re-fetching root queries on sub-navigations
@@ -156,76 +157,6 @@ export function ErrorBoundary() {
     </html>
   );
 }
-
-const MENU_FRAGMENT = `#graphql
-  fragment MenuItem on MenuItem {
-    id
-    resourceId
-    tags
-    title
-    type
-    url
-  }
-  fragment ChildMenuItem on MenuItem {
-    ...MenuItem
-  }
-  fragment ParentMenuItem on MenuItem {
-    ...MenuItem
-    items {
-      ...ChildMenuItem
-    }
-  }
-  fragment Menu on Menu {
-    id
-    items {
-      ...ParentMenuItem
-    }
-  }
-`;
-
-const HEADER_QUERY = `#graphql
-  fragment Shop on Shop {
-    id
-    name
-    description
-    primaryDomain {
-      url
-    }
-    brand {
-      logo {
-        image {
-          url
-        }
-      }
-    }
-  }
-  query Header(
-    $country: CountryCode
-    $headerMenuHandle: String!
-    $language: LanguageCode
-  ) @inContext(language: $language, country: $country) {
-    shop {
-      ...Shop
-    }
-    menu(handle: $headerMenuHandle) {
-      ...Menu
-    }
-  }
-  ${MENU_FRAGMENT}
-`;
-
-const FOOTER_QUERY = `#graphql
-  query Footer(
-    $country: CountryCode
-    $footerMenuHandle: String!
-    $language: LanguageCode
-  ) @inContext(language: $language, country: $country) {
-    menu(handle: $footerMenuHandle) {
-      ...Menu
-    }
-  }
-  ${MENU_FRAGMENT}
-`;
 
 /** @typedef {import('@shopify/remix-oxygen').LoaderFunctionArgs} LoaderFunctionArgs */
 /** @typedef {import('@remix-run/react').ShouldRevalidateFunction} ShouldRevalidateFunction */
