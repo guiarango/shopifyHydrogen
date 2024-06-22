@@ -3,7 +3,7 @@ import {Image} from '@shopify/hydrogen';
 //Styles
 import styles from '~/components/Products/PLP/PLP Utils/PLPProductImage.module.css';
 
-const PLPProductImage = ({images}) => {
+const PLPProductImage = ({images, loading}) => {
   return (
     <div className={styles.imagesContainer}>
       {images.length == 1 ? (
@@ -21,6 +21,7 @@ const PLPProductImage = ({images}) => {
               index == 1 ? styles.doubleImage2 : styles.doubleImage1
             }`}
             data={image}
+            loading={loading}
             aspectRatio="1/1"
             sizes="(min-width: 45em) 20vw, 50vw"
           />

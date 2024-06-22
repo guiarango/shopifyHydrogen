@@ -27,7 +27,7 @@ const PLPProductDescriptions = ({title, price, compareAtPrice}) => {
   return (
     <>
       <h4 className={styles.title}>{title}</h4>
-      {priceElement}
+      {/* {priceElement} */}
     </>
   );
 };

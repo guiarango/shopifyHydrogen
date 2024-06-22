@@ -5,7 +5,7 @@ import {Suspense} from 'react';
 import styles from '~/components/ProductsUtils/RecommendedProducts.module.css';
 
 //Components
-import ProductItem from '~/components/Products/PLP/ProductItemPLP';
+import ProductItemPLP from '~/components/Products/PLP/ProductItemPLP';
 
 const RecommendedProducts = ({products, title}) => {
   return (
@@ -16,7 +16,7 @@ const RecommendedProducts = ({products, title}) => {
           {({products}) => (
             <div className={styles.recommendedProductsGrid}>
               {products.nodes.map((product) => (
-                <ProductItem key={product.id} product={product} />
+                <ProductItemPLP key={product.id} product={product} />
               ))}
             </div>
           )}
