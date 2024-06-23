@@ -18,7 +18,7 @@ export const meta = () => {
 export async function loader({request, context}) {
   const {storefront} = context;
   const paginationVariables = getPaginationVariables(request, {
-    pageBy: 8,
+    pageBy: 20,
   });
 
   const {products} = await storefront.query(CATALOG_QUERY, {

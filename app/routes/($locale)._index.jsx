@@ -24,20 +24,22 @@ export const meta = () => {
  */
 export async function loader({context}) {
   const {storefront} = context;
+  const recommendedProducts = await storefront.query(
+    RECOMMENDED_PRODUCTS_QUERY,
+  );
   const {collections} = await storefront.query(FEATURED_COLLECTION_QUERY);
   const featuredCollection = collections.nodes[0];
-  const recommendedProducts = storefront.query(RECOMMENDED_PRODUCTS_QUERY);
 
   return defer({featuredCollection, recommendedProducts});
 }
 
 export default function Homepage() {
   /** @type {LoaderReturnData} */
-  const data = useLoaderData();
+  const {recommendedProducts} = useLoaderData();
   return (
     <main className="home">
       <RecommendedProducts
-        products={data.recommendedProducts}
+        products={recommendedProducts}
         title="¡Conoce lo nuevo!"
       />
     </main>

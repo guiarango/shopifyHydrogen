@@ -12,6 +12,10 @@ import {getVariantUrl} from '~/lib/variants';
 
 //Services
 import {PRODUCT_QUERY, VARIANTS_QUERY} from '~/services/productUtilsServices';
+import {RECOMMENDED_PRODUCTS_QUERY} from '~/services/PLPServices';
+
+//Components
+import RecommendedProducts from '~/components/ProductsUtils/RecommendedProducts';
 
 /**
  * @type {MetaFunction<typeof loader>}
@@ -30,6 +34,10 @@ export async function loader({params, request, context}) {
   if (!handle) {
     throw new Error('Expected product handle to be defined');
   }
+
+  const recommendedProducts = await storefront.query(
+    RECOMMENDED_PRODUCTS_QUERY,
+  );
 
   // await the query for the critical product data
   const {product} = await storefront.query(PRODUCT_QUERY, {
@@ -66,7 +74,7 @@ export async function loader({params, request, context}) {
     variables: {handle},
   });
 
-  return defer({product, variants});
+  return defer({product, variants, recommendedProducts});
 }
 
 /**
@@ -94,17 +102,23 @@ function redirectToFirstVariant({product, request}) {
 
 export default function Product() {
   /** @type {LoaderReturnData} */
-  const {product, variants} = useLoaderData();
+  const {product, variants, recommendedProducts} = useLoaderData();
   const {selectedVariant} = product;
   return (
-    <div className="product">
-      <ProductImage image={selectedVariant?.image} />
-      <ProductMain
-        selectedVariant={selectedVariant}
-        product={product}
-        variants={variants}
+    <>
+      <div className="product">
+        <ProductImage image={selectedVariant?.image} />
+        <ProductMain
+          selectedVariant={selectedVariant}
+          product={product}
+          variants={variants}
+        />
+      </div>
+      <RecommendedProducts
+        products={recommendedProducts}
+        title="¡Conoce lo nuevo!"
       />
-    </div>
+    </>
   );
 }
 
