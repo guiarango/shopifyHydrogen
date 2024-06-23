@@ -1,4 +1,7 @@
-import React from 'react';
+import {Pagination} from '@shopify/hydrogen';
+
+//Components
+import ProductGripPLP from '../Products/PLP/ProductGripPLP';
 
 const ProductsPagination = ({products}) => {
   return (
@@ -8,7 +11,7 @@ const ProductsPagination = ({products}) => {
           <PreviousLink>
             {isLoading ? 'Loading...' : <span>↑ Load previous</span>}
           </PreviousLink>
-          <ProductsGrid products={nodes} />
+          <ProductGripPLP products={nodes} />
           <br />
           <NextLink>
             {isLoading ? 'Loading...' : <span>Load more ↓</span>}

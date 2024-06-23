@@ -1,9 +1,9 @@
 import {json} from '@shopify/remix-oxygen';
 import {useLoaderData} from '@remix-run/react';
-import {Pagination, getPaginationVariables} from '@shopify/hydrogen';
+import {getPaginationVariables} from '@shopify/hydrogen';
 
 //Components
-import ProductItemPLP from '~/components/Products/PLP/ProductItemPLP';
+import ProductsPagination from '~/components/ProductsUtils/ProductsPagination';
 
 /**
  * @type {MetaFunction<typeof loader>}
@@ -18,7 +18,7 @@ export const meta = () => {
 export async function loader({request, context}) {
   const {storefront} = context;
   const paginationVariables = getPaginationVariables(request, {
-    pageBy: 20,
+    pageBy: 5,
   });
 
   const {products} = await storefront.query(CATALOG_QUERY, {
@@ -35,39 +35,7 @@ export default function Collection() {
   return (
     <div className="collection">
       <h1>Products</h1>
-      <Pagination connection={products}>
-        {({nodes, isLoading, PreviousLink, NextLink}) => (
-          <>
-            <PreviousLink>
-              {isLoading ? 'Loading...' : <span>↑ Load previous</span>}
-            </PreviousLink>
-            <ProductsGrid products={nodes} />
-            <br />
-            <NextLink>
-              {isLoading ? 'Loading...' : <span>Load more ↓</span>}
-            </NextLink>
-          </>
-        )}
-      </Pagination>
-    </div>
-  );
-}
-
-/**
- * @param {{products: ProductItemFragment[]}}
- */
-function ProductsGrid({products}) {
-  return (
-    <div className="products-grid">
-      {products.map((product, index) => {
-        return (
-          <ProductItemPLP
-            key={product.id}
-            product={product}
-            loading={index < 8 ? 'eager' : undefined}
-          />
-        );
-      })}
+      <ProductsPagination products={products} />
     </div>
   );
 }

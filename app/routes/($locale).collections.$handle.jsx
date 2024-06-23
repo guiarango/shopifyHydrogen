@@ -3,7 +3,7 @@ import {useLoaderData} from '@remix-run/react';
 import {Pagination, getPaginationVariables} from '@shopify/hydrogen';
 
 //Components
-import ProductItemPLP from '~/components/Products/PLP/ProductItemPLP';
+import ProductsPagination from '~/components/ProductsUtils/ProductsPagination';
 
 /**
  * @type {MetaFunction<typeof loader>}
@@ -19,7 +19,7 @@ export async function loader({request, params, context}) {
   const {handle} = params;
   const {storefront} = context;
   const paginationVariables = getPaginationVariables(request, {
-    pageBy: 4,
+    pageBy: 20,
   });
 
   if (!handle) {
@@ -46,39 +46,7 @@ export default function Collection() {
     <div className="collection">
       <h1>{collection.title}</h1>
       <p className="collection-description">{collection.description}</p>
-      <Pagination connection={collection.products}>
-        {({nodes, isLoading, PreviousLink, NextLink}) => (
-          <>
-            <PreviousLink>
-              {isLoading ? 'Loading...' : <span>↑ Load previous</span>}
-            </PreviousLink>
-            <ProductsGrid products={nodes} />
-            <br />
-            <NextLink>
-              {isLoading ? 'Loading...' : <span>Load more ↓</span>}
-            </NextLink>
-          </>
-        )}
-      </Pagination>
-    </div>
-  );
-}
-
-/**
- * @param {{products: ProductItemFragment[]}}
- */
-function ProductsGrid({products}) {
-  return (
-    <div className="products-grid">
-      {products.map((product, index) => {
-        return (
-          <ProductItemPLP
-            key={product.id}
-            product={product}
-            loading={index < 8 ? 'eager' : undefined}
-          />
-        );
-      })}
+      <ProductsPagination products={collection.products} />
     </div>
   );
 }
