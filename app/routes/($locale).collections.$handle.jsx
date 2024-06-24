@@ -1,6 +1,9 @@
 import {json, redirect} from '@shopify/remix-oxygen';
 import {useLoaderData} from '@remix-run/react';
-import {Pagination, getPaginationVariables} from '@shopify/hydrogen';
+import {getPaginationVariables} from '@shopify/hydrogen';
+
+//Services
+import {COLLECTION_QUERY} from '~/services/PLPServices';
 
 //Components
 import ProductsPagination from '~/components/ProductsUtils/ProductsPagination';
@@ -57,91 +60,6 @@ export default function Collection() {
  *   loading?: 'eager' | 'lazy';
  * }}
  */
-
-const PRODUCT_ITEM_FRAGMENT = `#graphql
-  fragment ProductItem on Product {
-    id
-    availableForSale
-    handle
-    title
-    images(first: 2) {
-      nodes {
-        id
-        url
-        altText
-        width
-        height
-      }
-    }
-    featuredImage {
-      id
-      altText
-      url
-      width
-      height
-    }
-    compareAtPriceRange {
-      minVariantPrice {
-        amount
-        currencyCode
-      }
-    }
-    priceRange {
-      minVariantPrice {
-        amount
-        currencyCode
-      }
-    }
-    variants(first: 1) {
-      nodes {
-        selectedOptions {
-          name
-          value
-        }
-      }
-    }
-    giftProduct: metafield(namespace:"custom",key:"giftproduct"){
-      value
-    }
-  }
-`;
-
-// NOTE: https://shopify.dev/docs/api/storefront/2022-04/objects/collection
-const COLLECTION_QUERY = `#graphql
-  ${PRODUCT_ITEM_FRAGMENT}
-  query Collection(
-    $handle: String!
-    $country: CountryCode
-    $language: LanguageCode
-    $first: Int
-    $last: Int
-    $startCursor: String
-    $endCursor: String
-  ) @inContext(country: $country, language: $language) {
-    collection(handle: $handle) {
-      id
-      handle
-      title
-      description
-      products(
-        first: $first,
-        last: $last,
-        before: $startCursor,
-        after: $endCursor
-      ) {
-        nodes {
-          ...ProductItem
-        }
-        pageInfo {
-          hasPreviousPage
-          hasNextPage
-          endCursor
-          startCursor
-        }
-      }
-    }
-  }
-`;
 
 /** @typedef {import('@shopify/remix-oxygen').LoaderFunctionArgs} LoaderFunctionArgs */
 /** @template T @typedef {import('@remix-run/react').MetaFunction<T>} MetaFunction */

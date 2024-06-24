@@ -28,13 +28,8 @@ export default function ProductItemPLP({product, loading}) {
     return;
 
   return (
-    <div className={`${style.productItem} recommended-product`}>
-      <Link
-        className={`${style.productContainer} recommended-product`}
-        key={id}
-        id={id}
-        to={`/products/${handle}`}
-      >
+    <div className={`${style.productContainer}`}>
+      <Link key={id} id={id} to={`/products/${handle}`}>
         <PLPProductImage images={images.nodes} loading={loading} />
 
         <PLPProductDescriptions
