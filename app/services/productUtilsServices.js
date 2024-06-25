@@ -69,6 +69,7 @@ const PRODUCT_FRAGMENT = `#graphql
   ${PRODUCT_VARIANT_FRAGMENT}
 `;
 
+// Graphql for Product handle query
 export const PRODUCT_QUERY = `#graphql
   query Product(
     $country: CountryCode
@@ -83,6 +84,7 @@ export const PRODUCT_QUERY = `#graphql
   ${PRODUCT_FRAGMENT}
 `;
 
+// Graphql for Product variants query
 const PRODUCT_VARIANTS_FRAGMENT = `#graphql
   fragment ProductVariants on Product {
     variants(first: 250) {

@@ -1,16 +1,15 @@
 import {defer} from '@shopify/remix-oxygen';
 import {useLoaderData} from '@remix-run/react';
 
-//Components
-import RecommendedProducts from '~/components/ProductsUtils/RecommendedProducts';
-
 //Services
 import {
   FEATURED_COLLECTION_QUERY,
   RECOMMENDED_PRODUCTS_QUERY,
 } from '~/services/PLPServices';
 
-import {PRODUCT_QUERY, VARIANTS_QUERY} from '~/services/productUtilsServices';
+//Components
+import RecommendedProducts from '~/components/ProductsUtils/RecommendedProducts';
+import CircledBanners from '~/components/VisualUtils/CircledBanners/CircledBanners';
 
 /**
  * @type {MetaFunction}
@@ -27,21 +26,46 @@ export async function loader({context}) {
   const recommendedProducts = await storefront.query(
     RECOMMENDED_PRODUCTS_QUERY,
   );
-  const {collections} = await storefront.query(FEATURED_COLLECTION_QUERY);
-  const featuredCollection = collections.nodes[0];
-
-  return defer({featuredCollection, recommendedProducts});
+  // const {collections} = await storefront.query(FEATURED_COLLECTION_QUERY);
+  // const featuredCollection = collections.nodes[0];
+  // return defer({featuredCollection, recommendedProducts});
+  return defer({recommendedProducts});
 }
 
 export default function Homepage() {
   /** @type {LoaderReturnData} */
   const {recommendedProducts} = useLoaderData();
+
+  const circledBannersSrc = [
+    {
+      imageSrc:
+        'https://cdn.shopify.com/s/files/1/0879/1103/9262/files/Main_d624f226-0a89-4fe1-b333-0d1548b43c06.jpg?v=1717597832',
+    },
+    {
+      imageSrc:
+        'https://cdn.shopify.com/s/files/1/0879/1103/9262/files/Main_d624f226-0a89-4fe1-b333-0d1548b43c06.jpg?v=1717597832',
+    },
+    {
+      imageSrc:
+        'https://cdn.shopify.com/s/files/1/0879/1103/9262/files/Main_d624f226-0a89-4fe1-b333-0d1548b43c06.jpg?v=1717597832',
+    },
+    {
+      imageSrc:
+        'https://cdn.shopify.com/s/files/1/0879/1103/9262/files/Main_d624f226-0a89-4fe1-b333-0d1548b43c06.jpg?v=1717597832',
+    },
+    {
+      imageSrc:
+        'https://cdn.shopify.com/s/files/1/0879/1103/9262/files/Main_d624f226-0a89-4fe1-b333-0d1548b43c06.jpg?v=1717597832',
+    },
+  ];
+
   return (
     <main className="home">
       <RecommendedProducts
         products={recommendedProducts}
         title="¡Conoce lo nuevo!"
       />
+      <CircledBanners title={'En oferta'} banners={circledBannersSrc} />
     </main>
   );
 }

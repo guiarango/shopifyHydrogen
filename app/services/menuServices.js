@@ -24,6 +24,7 @@ const MENU_FRAGMENT = `#graphql
   }
 `;
 
+// Graphql for Header
 export const HEADER_QUERY = `#graphql
   fragment Shop on Shop {
     id
@@ -55,6 +56,7 @@ export const HEADER_QUERY = `#graphql
   ${MENU_FRAGMENT}
 `;
 
+// Graphql for Footer
 export const FOOTER_QUERY = `#graphql
   query Footer(
     $country: CountryCode

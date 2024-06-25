@@ -1,5 +1,6 @@
 .recommendedProducts {
   height: auto;
+  max-width: 100vw;
 }
 
 .recommendedProductsTitle {

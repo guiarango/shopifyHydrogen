@@ -1,5 +1,4 @@
 // Graphql for featured collection query
-
 export const FEATURED_COLLECTION_QUERY = `#graphql
   fragment FeaturedCollection on Collection {
     id
@@ -24,7 +23,6 @@ export const FEATURED_COLLECTION_QUERY = `#graphql
 `;
 
 // Graphql for recommended products query
-
 export const RECOMMENDED_PRODUCTS_QUERY = `#graphql
   fragment RecommendedProduct on Product {
     id
@@ -87,7 +85,6 @@ export const RECOMMENDED_PRODUCTS_QUERY = `#graphql
 `;
 
 // Graphql for collection $handle query
-
 const PRODUCT_ITEM_FRAGMENT = `#graphql
   fragment ProductItem on Product {
     id
@@ -173,7 +170,6 @@ export const COLLECTION_QUERY = `#graphql
 `;
 
 // Graphql for collection all query
-
 export const CATALOG_QUERY = `#graphql
   query Catalog(
     $country: CountryCode
