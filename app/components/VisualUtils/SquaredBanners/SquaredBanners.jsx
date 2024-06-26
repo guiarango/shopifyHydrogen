@@ -1,12 +1,12 @@
 import {useRef, useState} from 'react';
 
 //Styles
-import styles from './CircledBanners.module.css';
+import styles from './SquaredBanners.module.css';
 
 //Components
-import CircledBanner from './CircledBanner';
+import SquaredBanner from './SquaredBanner';
 
-const CircledBanners = ({title, banners}) => {
+const SquaredBanners = ({title, banners}) => {
   const imageContainerRef = useRef(null);
   const [isDragging, setIsDragging] = useState(false);
   const [startX, setStartX] = useState(0);
@@ -38,16 +38,16 @@ const CircledBanners = ({title, banners}) => {
     <>
       <h2 className={styles.title}>{title}</h2>
       <div
-        className={styles.circledBannersContainer}
+        className={styles.squaredBannersContainer}
         ref={imageContainerRef}
         onMouseDown={onMouseDown}
         onMouseLeave={onMouseLeave}
         onMouseUp={onMouseUp}
         onMouseMove={onMouseMove}
       >
-        <div className={styles.circledBannersDraggable}>
+        <div className={styles.squaredBannersDraggable}>
           {banners.map((banner, index) => (
-            <CircledBanner key={index} imageSrc={banner.imageSrc} />
+            <SquaredBanner key={index} imageSrc={banner.imageSrc} />
           ))}
         </div>
       </div>
@@ -55,4 +55,4 @@ const CircledBanners = ({title, banners}) => {
   );
 };
 
-export default CircledBanners;
+export default SquaredBanners;

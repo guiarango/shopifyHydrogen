@@ -3,13 +3,14 @@ import {useLoaderData} from '@remix-run/react';
 
 //Services
 import {
-  FEATURED_COLLECTION_QUERY,
+  // FEATURED_COLLECTION_QUERY,
   RECOMMENDED_PRODUCTS_QUERY,
 } from '~/services/PLPServices';
 
 //Components
 import RecommendedProducts from '~/components/ProductsUtils/RecommendedProducts';
 import CircledBanners from '~/components/VisualUtils/CircledBanners/CircledBanners';
+import SquaredBanners from '~/components/VisualUtils/SquaredBanners/SquaredBanners';
 
 /**
  * @type {MetaFunction}
@@ -39,23 +40,23 @@ export default function Homepage() {
   const circledBannersSrc = [
     {
       imageSrc:
-        'https://cdn.shopify.com/s/files/1/0879/1103/9262/files/Main_d624f226-0a89-4fe1-b333-0d1548b43c06.jpg?v=1717597832',
+        'https://cdn.shopify.com/s/files/1/0879/1103/9262/files/theme_cover_image.jpg?v=1717597831',
     },
     {
       imageSrc:
-        'https://cdn.shopify.com/s/files/1/0879/1103/9262/files/Main_d624f226-0a89-4fe1-b333-0d1548b43c06.jpg?v=1717597832',
+        'https://cdn.shopify.com/s/files/1/0879/1103/9262/files/theme_cover_image.jpg?v=1717597831',
     },
     {
       imageSrc:
-        'https://cdn.shopify.com/s/files/1/0879/1103/9262/files/Main_d624f226-0a89-4fe1-b333-0d1548b43c06.jpg?v=1717597832',
+        'https://cdn.shopify.com/s/files/1/0879/1103/9262/files/theme_cover_image.jpg?v=1717597831',
     },
     {
       imageSrc:
-        'https://cdn.shopify.com/s/files/1/0879/1103/9262/files/Main_d624f226-0a89-4fe1-b333-0d1548b43c06.jpg?v=1717597832',
+        'https://cdn.shopify.com/s/files/1/0879/1103/9262/files/theme_cover_image.jpg?v=1717597831',
     },
     {
       imageSrc:
-        'https://cdn.shopify.com/s/files/1/0879/1103/9262/files/Main_d624f226-0a89-4fe1-b333-0d1548b43c06.jpg?v=1717597832',
+        'https://cdn.shopify.com/s/files/1/0879/1103/9262/files/theme_cover_image.jpg?v=1717597831',
     },
   ];
 
@@ -65,7 +66,8 @@ export default function Homepage() {
         products={recommendedProducts}
         title="¡Conoce lo nuevo!"
       />
-      <CircledBanners title={'En oferta'} banners={circledBannersSrc} />
+      <CircledBanners title={'Circulares'} banners={circledBannersSrc} />
+      <SquaredBanners title={'Cuadrados'} banners={circledBannersSrc} />
     </main>
   );
 }

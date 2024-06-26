@@ -1,11 +1,11 @@
-.circledBannersContainer {
+.squaredBannersContainer {
   display: flex;
   justify-content: center;
   align-items: center;
   overflow: hidden;
 }
 
-.circledBannersDraggable {
+.squaredBannersDraggable {
   display: flex;
   overflow-x: auto;
   white-space: nowrap;
@@ -15,7 +15,7 @@
   scrollbar-width: none; /* Firefox */
 }
 
-.circledBannersDraggable::-webkit-scrollbar {
+.squaredBannersDraggable::-webkit-scrollbar {
   display: none;
 }
 

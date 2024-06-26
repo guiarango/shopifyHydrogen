@@ -1,26 +1,24 @@
-.circledBannerContainer {
+.squaredBannerContainer {
   cursor: pointer;
   width: 100px;
   height: 100px;
   margin-right: 10px;
   position: relative;
   overflow: hidden;
-  border-radius: 50%;
 }
 
-.circledBannerContainer::before {
+.squaredBannerContainer::before {
   content: '';
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  border-radius: 50%;
   z-index: 1;
   pointer-events: none;
 }
 
-.circledBanner {
+.squaredBanner {
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -31,6 +29,6 @@
   z-index: 0;
 }
 
-.circledBannerContainer:hover .circledBanner {
+.squaredBannerContainer:hover .squaredBanner {
   transform: scale(1.1);
 }
